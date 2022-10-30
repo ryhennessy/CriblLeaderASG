@@ -1,13 +1,3 @@
-//Remove this later.  Copied this from loadbalancer tf file as things are being tested.
-
-data "aws_subnets" "instance_subnets" {
-  filter {
-    name   = "vpc-id"
-    values = [var.AWS_VPC]
-  }
-}
-
-
 resource "aws_security_group" "allow_nfs" {
   name        = "Cribl_Leader_EFS"
   description = "Allow NFS inbound traffic"
