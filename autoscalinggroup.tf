@@ -54,7 +54,6 @@ resource "aws_autoscaling_group" "cribl_leader" {
   max_size                  = 2
   min_size                  = 2
   health_check_grace_period = 300
-  health_check_type         = "ELB"
   desired_capacity          = 2
   force_delete              = false
   launch_template           = aws_launch_template.cribl_leader.name
