@@ -12,10 +12,10 @@ resource "aws_security_group" "allow_leader_ui_lb" {
   }
 
   egress {
-    from_port        = 9000
-    to_port          = 9000 
-    protocol         = "tcp"
-    security_groups  = [aws_security_group.leader_instance_sg.id]
+    from_port       = 9000
+    to_port         = 9000
+    protocol        = "tcp"
+    security_groups = [aws_security_group.leader_instance_sg.id]
   }
 
 
