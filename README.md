@@ -18,15 +18,17 @@ The Terraform code will:
 ## Inputs 
 The Terraform Code Requires the following Inputs:
 
-**AWS_VPC** (Required) - The VPC that the Leader Pair Config will deployed
+Variable Name | Required? | Description 
+--- | --- | ---
+**AWS_VPC** | Required | The VPC that the Leader Pair Config will deployed 
 
-**AWS_REGION** (Required) - The Region the Leader Pair will be deployed (ie. us-east-2)
+**AWS_REGION** | Required | The Region the Leader Pair will be deployed (ie. us-east-2)
 
-**NUMOFINST** (Default: 2) - The number of Leader instances to deploy in the ASG
+**NUMOFINST** | Default: 2 | The number of Leader instances to deploy in the ASG
 
-**SSHKEYNAME** (Required) - The name of the existing SSH Key Pair
+**SSHKEYNAME** | Required | The name of the existing SSH Key Pair
 
-**CRIBL_LIC** (Required) - The Cribl License Key. The HA Pair will not start correctly without this key.
+**CRIBL_LIC** | Required | The Cribl License Key. The HA Pair will not start correctly without this key.
 
 
 ## Outputs
