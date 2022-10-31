@@ -18,12 +18,12 @@ resource "aws_security_group" "leader_instance_sg" {
   }
 
   ingress {
-    from_port   = 22 
+    from_port   = 22
     to_port     = 22
     cidr_blocks = ["0.0.0.0/0"]
     protocol    = "tcp"
   }
-  
+
   egress {
     from_port        = 0
     to_port          = 0
@@ -45,8 +45,8 @@ resource "aws_launch_template" "cribl_leader" {
   image_id               = "ami-0b8b40dbcaecb0eb1"
   instance_type          = "c6g.large"
   vpc_security_group_ids = [aws_security_group.leader_instance_sg.id]
-  user_data              = base64encode(templatefile("leader.tpl", { efsname = aws_efs_file_system.criblfailover.id, awsregion = var.AWS_REGION }))
-  key_name               = "CriblMacbook"
+  user_data              = base64encode(templatefile("leader.tpl", { efsname = aws_efs_file_system.criblfailover.id, awsregion = var.AWS_REGION, license = var.CRIBL_LIC }))
+  key_name               = var.SSHKEYNAME
   monitoring {
     enabled = false
   }
@@ -54,10 +54,10 @@ resource "aws_launch_template" "cribl_leader" {
 
 resource "aws_autoscaling_group" "cribl_leader" {
   name                      = "CriblLeaderFO"
-  max_size                  = 2
-  min_size                  = 2
+  max_size                  = var.NUMOFINST
+  min_size                  = var.NUMOFINST
   health_check_grace_period = 300
-  desired_capacity          = 2
+  desired_capacity          = var.NUMOFINST
   force_delete              = false
   launch_template {
     name = aws_launch_template.cribl_leader.name

@@ -7,7 +7,9 @@ sudo chown cribl:cribl /opt/cribl
 sudo mkdir /criblshare 
 sudo sh -c "echo '${efsname}.efs.${awsregion}.amazonaws.com:/ /criblshare  nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0' >> /etc/fstab"
 sudo mount -a
-chown cribl:cribl /criblshare
+sudo mkdir -p /criblshare/local/cribl
+sudo sh -c 'printf "licenses:\n  - ${license}" > /criblshare/local/cribl/licenses.yml'
+sudo chown -R cribl:cribl /criblshare
 sudo curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) > /tmp/cribl.tgz
 sudo tar xvzf /tmp/cribl.tgz -C /opt
 sleep 10
