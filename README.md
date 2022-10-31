@@ -15,8 +15,9 @@ The Terraform code will:
 ![HA Leader Diagram](images/CriblLeaderHAonAWS.jpg)
 
 
-##Inputs 
+## Inputs 
 The Terraform Code Requires the following Inputs:
+
 AWS_VPC (Required) - The VPC that the Leader Pair Config will deployed
 AWS_REGION (Required) - The Region the Leader Pair will be deployed (ie. us-east-2)
 NUMOFINST (Default: 2) - The number of Leader instances to deploy in the ASG
@@ -24,11 +25,13 @@ SSHKEYNAME (Required) - The name of the existing SSH Key Pair
 CRIBL_LIC (Required) - The Cribl License Key. The HA Pair will not start correctly without this key.
 
 
-##Outputs
+## Outputs
+
 *To be determined.*
 
 
-##To Do's
+## To Do's
+
  - Create the configuration for the NLB (Just haven't done it yet)
  - Identify and define the outputs for this Terraform Code
  - Create a Terraform Module (or include this code in an existing module)
