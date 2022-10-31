@@ -7,7 +7,8 @@ variable "AWS_REGION" {
 }
 
 variable "NUMOFINST" {
-  type = number
+  type    = number
+  default = 2
 }
 
 variable "CRIBL_LIC" {
