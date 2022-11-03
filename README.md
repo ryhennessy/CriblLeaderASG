@@ -34,6 +34,6 @@ Variable Name | Required? | Description
 
 ## To Do's
 
- - Create the configuration for the NLB (Just haven't done it yet)
+ - ~~Create the configuration for the NLB (Just haven't done it yet)~~
  - Identify and define the outputs for this Terraform Code
  - Create a Terraform Module (or include this code in an existing module)
