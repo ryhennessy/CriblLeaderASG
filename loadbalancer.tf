@@ -31,7 +31,6 @@ data "aws_subnets" "instance_subnets" {
   }
 }
 
-
 resource "aws_lb" "Cribl_Leader_UI" {
   name               = "CriblLeaderUI"
   internal           = false
@@ -44,7 +43,6 @@ resource "aws_lb" "Cribl_Leader_UI" {
   }
 }
 
-
 resource "aws_lb_listener" "cribl_ui_listener" {
   load_balancer_arn = aws_lb.Cribl_Leader_UI.arn
   port              = "9000"
@@ -53,5 +51,38 @@ resource "aws_lb_listener" "cribl_ui_listener" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_cribl_leader_ui.arn
+  }
+}
+
+resource "aws_lb" "Cribl_Leader_Worker_LB" {
+  name               = "CriblWorkerLeader"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = [for subnet in data.aws_subnets.instance_subnets.ids : subnet]
+
+  tags = {
+    Environment = "cribl"
+  }
+}
+
+resource "aws_lb_listener" "cribl_worker_port_9000" {
+  load_balancer_arn = aws_lb.Cribl_Leader_Worker_LB.arn
+  port              = "9000"
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.nlb_cribl_leader_port_9000.arn
+  }
+}
+
+resource "aws_lb_listener" "cribl_worker_port_4200" {
+  load_balancer_arn = aws_lb.Cribl_Leader_Worker_LB.arn
+  port              = "4200"
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.nlb_cribl_leader_port_4200.arn
   }
 }

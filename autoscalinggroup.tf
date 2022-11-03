@@ -63,9 +63,9 @@ resource "aws_autoscaling_group" "cribl_leader" {
     name = aws_launch_template.cribl_leader.name
   }
   vpc_zone_identifier = [for subnet in data.aws_subnets.instance_subnets.ids : subnet]
-  target_group_arns   = toset([aws_lb_target_group.alb_cribl_leader_ui.arn])
+  target_group_arns   = toset([aws_lb_target_group.alb_cribl_leader_ui.arn, aws_lb_target_group.nlb_cribl_leader_port_4200.arn, aws_lb_target_group.nlb_cribl_leader_port_9000.arn])
   health_check_type   = "EC2"
-  depends_on          = [aws_efs_access_point.criblfailover, aws_lb.Cribl_Leader_UI]
+  depends_on          = [aws_efs_access_point.criblfailover, aws_lb.Cribl_Leader_UI, aws_lb.Cribl_Leader_Worker_LB]
 }
 
 
